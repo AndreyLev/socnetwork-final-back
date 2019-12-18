@@ -1,0 +1,105 @@
+### - разделитель для запросов
+
+
+GET {{url}}/api/posts
+
+###
+
+GET {{url}}/api/posts/lastFivePosts
+
+###
+
+POST {{url}}/api/posts/3/impression
+
+###
+
+POST {{url}}/api/posts
+Content-Type: application/json
+
+{
+  "id": 0,
+  "content": "Last post",
+  "media": null
+}
+
+###
+
+POST {{url}}/api/posts/3/1/drawnposts
+
+###
+
+POST {{url}}/api/posts/1/newposts
+
+###
+
+GET {{url}}/api/posts/1/newPosts
+
+###
+
+POST {{url}}/api/posts
+Content-Type: application/json
+
+{
+  "id": 0,
+  "content": "Dislike this stuff! I'm disagree with author!",
+  "media": null
+}
+
+###
+
+DELETE {{url}}/api/posts/1
+
+###
+
+POST {{url}}/api/posts/1/likes
+
+###
+
+DELETE {{url}}/api/posts/1/likes
+
+###
+
+GET {{url}}/api/posts?q=First
+
+###
+
+DELETE {{url}}/api/posts/hello
+
+###
+
+POST {{url}}/api/files/multipart
+Content-Type: multipart/form-data; boundary=WebApp
+
+--WebApp
+Content-Disposition: form-data; name="file"; filename="panda.jpg"
+Content-Type: image/jpeg
+
+< ./java.jpg
+--WebApp--
+
+###
+
+POST {{url}}/api/files/model
+Content-Type: multipart/form-data; boundary=WebApp
+
+--WebApp
+Content-Disposition: form-data; name="name"
+Content-Type: text/plain
+
+PANDA
+
+--WebApp
+Content-Disposition: form-data; name="file"; filename="panda.jpg"
+Content-Type: image/jpeg
+
+< ./java.jpg
+--WebApp--
+
+###
+
+POST {{url}}/api/files/bytes
+Content-Type: application/octet-stream
+
+< ./java.jpg
+
+###
