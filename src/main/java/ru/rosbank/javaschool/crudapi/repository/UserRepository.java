@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
 
-    @Modifying
-    @Query("UPDATE UserEntity u SET u.removed=false WHERE u.id = :id")
-    void setRemovedById(@Param("id") int id);
+//    @Modifying
+//    @Query("UPDATE UserEntity u SET u.removed=true WHERE u.id = :id")
+//    void setRemovedById(@Param("id") long id);
 }

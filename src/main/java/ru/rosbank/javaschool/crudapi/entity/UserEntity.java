@@ -28,7 +28,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private boolean isRemoved;
 
 }
