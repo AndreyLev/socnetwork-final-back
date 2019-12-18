@@ -2,6 +2,7 @@ package ru.rosbank.javaschool.crudapi.service;
 
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import ru.rosbank.javaschool.crudapi.entity.PostEntity;
 import ru.rosbank.javaschool.crudapi.exception.NotFoundException;
 import ru.rosbank.javaschool.crudapi.mapper.PostMapper;
@@ -21,11 +22,10 @@ class PostServiceTest {
     // LASTS FIVE POSTS TESTS
 
     @Test
-    void getLastFivePostsWhereNoPostsInRepo() {
+    void getZeroValueLastFivePostsWhereNoPostsInRepo() {
         val repository = mock(PostRepository.class);
         doReturn(List.of()).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getLastFivePosts().size());
     }
@@ -36,8 +36,7 @@ class PostServiceTest {
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(3, service.getLastFivePosts().size());
     }
@@ -50,29 +49,26 @@ class PostServiceTest {
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getNewPostsQuantity(1));
     }
 
     @Test
-    void getNewPostsQuantityWhenNoPostsInRepo() {
+    void getZeroNewPostsQuantityWhenNoPostsInRepo() {
         val repository = mock(PostRepository.class);
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNewPostsQuantity(3));
     }
 
     @Test
-    void getNewPostsQuantityWhenNoSuchPostsInRepo() {
+    void getZeroNewPostsQuantityWhenNoSuchPostsInRepo() {
         val repository = mock(PostRepository.class);
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNewPostsQuantity(4));
     }
@@ -81,8 +77,7 @@ class PostServiceTest {
     @Test
     void getNoRemovePostBeforeFirstDrawnPostWhereNoPostsInRepo() {
         val repository = mock(PostRepository.class);
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNoRemovePostBeforeFirstDrawnPost(3).size());
     }
@@ -93,8 +88,7 @@ class PostServiceTest {
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getNoRemovePostBeforeFirstDrawnPost(1).size());
     }
@@ -105,8 +99,7 @@ class PostServiceTest {
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNoRemovePostBeforeFirstDrawnPost(4).size());
     }
@@ -116,8 +109,7 @@ class PostServiceTest {
     @Test
     void getNoRemovePostAfterLastDrawnPostWhereNoPostsInRepo() {
         val repository = mock(PostRepository.class);
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNoRemovePostAfterLastDrawnPost(3).size());
     }
@@ -129,20 +121,18 @@ class PostServiceTest {
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getNoRemovePostAfterLastDrawnPost(3).size());
     }
 
     @Test
-    void getNoRemovePostAfterLastDrawnPostWhereNoSuchPostsInRepo() {
+    void getZeroValueNoRemovePostAfterLastDrawnPostWhereNoSuchPostsInRepo() {
         val repository = mock(PostRepository.class);
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNoRemovePostBeforeFirstDrawnPost(4).size());
     }
@@ -155,18 +145,16 @@ class PostServiceTest {
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, true, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getAllNoRemoved().size());
     }
 
     @Test
-    void getAllNoRemovedWhenNoPostsInRepo() {
+    void getZeroValueAllNoRemovedWhenNoPostsInRepo() {
         val repository = mock(PostRepository.class);
         doReturn(List.of()).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getAllNoRemoved().size());
     }
@@ -177,26 +165,33 @@ class PostServiceTest {
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(3, service.getAllNoRemoved().size());
     }
 
-    // TESTS FOR REMOVE BY ID
+    // TESTS FOR GET DRAWN POSTS
 
     @Test
-    void isRemovedByIdWhenPostsPresentInRepo() {
+    void getDrawnPostsWhenPostsPresentInRepo() {
         val repository = mock(PostRepository.class);
         doReturn(List.of(new PostEntity(3, null, null, false, 0),
                 new PostEntity(2, null, null, false, 0),
                 new PostEntity(1, null, null, false, 0))).when(repository).findAll();
-        val mapper = mock(PostMapper.class);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
-        assertThrows(NotFoundException.class, () -> service.getById(2));
-
+        assertEquals(3, service.getDrawnPosts(3,1).size());
     }
+
+    @Test
+    void getZeroDrawnPostsWhenNoPostsInRepo() {
+        val repository = mock(PostRepository.class);
+        doReturn(List.of()).when(repository).findAll();
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
+
+        assertEquals(0, service.getDrawnPosts(3,1).size());
+    }
+
 
 
 
@@ -205,9 +200,8 @@ class PostServiceTest {
     @Test
     void getByIdShouldThrowExceptionWhereNoPostsInRepo() {
         val repository = mock(PostRepository.class);
-        val mapper = mock(PostMapper.class);
         doReturn(Optional.empty()).when(repository).findById(1);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
        assertThrows(NotFoundException.class, () -> service.getById(1));
     }
@@ -215,20 +209,18 @@ class PostServiceTest {
     @Test
     void getByIdShouldThrowExceptionWhereNoSuchPostInRepo() {
         val repository = mock(PostRepository.class);
-        val mapper = mock(PostMapper.class);
         doReturn(Optional.empty()).when(repository).findById(anyInt());
         doReturn(Optional.of(new PostEntity())).when(repository).findById(1);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
-        assertThrows(NotFoundException.class, () -> service.getById(1));
+        assertThrows(NotFoundException.class, () -> service.getById(2));
     }
 
     @Test
     void getByIdShouldReturnDtoWhenPostPresentInRepo() {
         val repository = mock(PostRepository.class);
-        val mapper = mock(PostMapper.class);
         doReturn(Optional.of(new PostEntity())).when(repository).findById(2);
-        val service = new PostService(repository, mapper);
+        val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertNotNull(service.getById(2));
     }
