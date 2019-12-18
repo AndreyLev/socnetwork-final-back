@@ -24,5 +24,23 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public UserResponseDto getById(long id) {
+        return (UserResponseDto) repository.findAll().stream()
+                .filter(o -> o.getId() == id)
+                .map(mapper::entityToUserResponseDto);
+    }
+
+    public UserResponseDto getByUsername(String username) {
+        return (UserResponseDto) repository.findAll().stream()
+                .filter(o -> {
+                    int result =  o.getUsername().compareToIgnoreCase(username);
+                    if (result == 0) {
+                        return true;
+                    }
+                    return false;
+                })
+                .map(mapper::entityToUserResponseDto);
+    }
+
 
 }
