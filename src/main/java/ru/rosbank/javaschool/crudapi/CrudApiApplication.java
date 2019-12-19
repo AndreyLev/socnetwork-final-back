@@ -23,14 +23,16 @@ public class CrudApiApplication {
   public CommandLineRunner runner(PostRepository repository, UserService service) {
     UserSaveRequestDto anonymousSave = new UserSaveRequestDto(0, "Случайный прохожий", "anonymous", "11111111", "anonymous@gmail.com");
     UserEntity anonymous = service.save(anonymousSave);
-    UserSaveRequestDto vasyaSave = new UserSaveRequestDto(0, "Vasya", "vaska", "12345678", "vasya@gmail.com");
+    UserSaveRequestDto vasyaSave = new UserSaveRequestDto(0, "Вася", "vaska", "12345678", "vasya@gmail.com");
     UserEntity vasya = service.save(vasyaSave);
-    UserSaveRequestDto nikitaSave = new UserSaveRequestDto(0, "Nikita", "nikicent", "87654321", "nikita@gmail.com");
+    UserSaveRequestDto nikitaSave = new UserSaveRequestDto(0, "Никита", "nikicent", "87654321", "nikita@gmail.com");
     UserEntity nikita = service.save(nikitaSave);
     return args -> repository.saveAll(List.of(
-        new PostEntity(0, vasya,"First", null, false, 0),
-        new PostEntity(0, nikita,"Second", null, false, 0),
-        new PostEntity(0, vasya,"Third", null, false, 0)
+        new PostEntity(0, vasya,"Ух-ты, уже почти январь! а снег-то где?", null, false, 0),
+        new PostEntity(0, nikita,"Люди живут не задумываясь… кажется, что выбор можно отложить на потом. Но наступает момент, когда откладывать больше нельзя. И ты вдруг понимаешь, что выбор уже сделан, а ты даже не заметил.\n" +
+                "\n" +
+                "Ирвин Уэлш", null, false, 0),
+        new PostEntity(0, vasya,"Сегодня получил пару зачётов, ура!", null, false, 0)
     ));
   }
 
