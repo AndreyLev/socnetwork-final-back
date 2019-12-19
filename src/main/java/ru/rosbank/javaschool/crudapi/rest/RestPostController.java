@@ -52,7 +52,7 @@ public class RestPostController {
   // POST -> create/update
   @PostMapping // DataBinding
   public PostResponseDto save(@RequestBody PostSaveRequestDto dto) {
-    dto.setAuthor(userService.save(new UserSaveRequestDto(0, "Anonym", "anonymous", "12345678", "anon@gmail.com")));
+    dto.setAuthor(userService.getUserEntityById(1));
     return service.save(dto);
   }
 

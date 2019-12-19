@@ -28,6 +28,11 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public UserEntity getUserEntityById(long id) {
+        return repository.findById(id)
+                .orElseThrow(NotFoundException::new);
+    }
+
     public UserResponseDto getById(long id) {
          List<UserResponseDto> list = repository.findAll().stream()
                 .filter(o -> o.getId() == id)

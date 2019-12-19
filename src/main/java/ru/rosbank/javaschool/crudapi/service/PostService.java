@@ -2,6 +2,7 @@ package ru.rosbank.javaschool.crudapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.rosbank.javaschool.crudapi.dto.PostResponseDto;
 import ru.rosbank.javaschool.crudapi.dto.PostSaveRequestDto;
 import ru.rosbank.javaschool.crudapi.entity.PostEntity;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PostService {
   private final PostRepository repository;

@@ -21,6 +21,8 @@ public class CrudApiApplication {
 
   @Bean
   public CommandLineRunner runner(PostRepository repository, UserService service) {
+    UserSaveRequestDto anonymousSave = new UserSaveRequestDto(0, "Случайный прохожий", "anonymous", "11111111", "anonymous@gmail.com");
+    UserEntity anonymous = service.save(anonymousSave);
     UserSaveRequestDto vasyaSave = new UserSaveRequestDto(0, "Vasya", "vaska", "12345678", "vasya@gmail.com");
     UserEntity vasya = service.save(vasyaSave);
     UserSaveRequestDto nikitaSave = new UserSaveRequestDto(0, "Nikita", "nikicent", "87654321", "nikita@gmail.com");
