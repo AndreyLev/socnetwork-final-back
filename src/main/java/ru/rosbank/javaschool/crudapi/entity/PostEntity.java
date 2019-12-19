@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.rosbank.javaschool.crudapi.dto.PostSaveRequestDto;
+import ucar.nc2.constants.CF;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -18,6 +16,10 @@ public class PostEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private UserEntity author;
+
   private String content;
   private String media;
   private boolean removed;

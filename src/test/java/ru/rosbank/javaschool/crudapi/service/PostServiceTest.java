@@ -4,6 +4,7 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import ru.rosbank.javaschool.crudapi.entity.PostEntity;
+import ru.rosbank.javaschool.crudapi.entity.UserEntity;
 import ru.rosbank.javaschool.crudapi.exception.NotFoundException;
 import ru.rosbank.javaschool.crudapi.mapper.PostMapper;
 import ru.rosbank.javaschool.crudapi.repository.PostRepository;
@@ -33,9 +34,10 @@ class PostServiceTest {
     @Test
     void getLastFivePostsWherePresentPostsInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(3, service.getLastFivePosts().size());
@@ -46,9 +48,10 @@ class PostServiceTest {
     @Test
     void getNewPostsQuantityWhenPostsPresentInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getNewPostsQuantity(1));
@@ -65,9 +68,10 @@ class PostServiceTest {
     @Test
     void getZeroNewPostsQuantityWhenNoSuchPostsInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNewPostsQuantity(4));
@@ -85,9 +89,10 @@ class PostServiceTest {
     @Test
     void getNoRemovePostBeforeFirstDrawnPostWherePresentPostsInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getNoRemovePostBeforeFirstDrawnPost(1).size());
@@ -96,9 +101,10 @@ class PostServiceTest {
     @Test
     void getNoRemovePostBeforeFirstDrawnPostWhereNoSuchPostsInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNoRemovePostBeforeFirstDrawnPost(4).size());
@@ -118,9 +124,10 @@ class PostServiceTest {
     @Test
     void getNoRemovePostAfterLastDrawnPostWherePresentPostsInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getNoRemovePostAfterLastDrawnPost(3).size());
@@ -129,9 +136,10 @@ class PostServiceTest {
     @Test
     void getZeroValueNoRemovePostAfterLastDrawnPostWhereNoSuchPostsInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(0, service.getNoRemovePostBeforeFirstDrawnPost(4).size());
@@ -142,9 +150,10 @@ class PostServiceTest {
     @Test
     void getAllNoRemovedWhenRemovedPostsPresentInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, true, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, true, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(2, service.getAllNoRemoved().size());
@@ -162,9 +171,10 @@ class PostServiceTest {
     @Test
     void getAllNoRemovedWhenRemovedPostsIsNoRemovedInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(3, service.getAllNoRemoved().size());
@@ -175,9 +185,10 @@ class PostServiceTest {
     @Test
     void getDrawnPostsWhenPostsPresentInRepo() {
         val repository = mock(PostRepository.class);
-        doReturn(List.of(new PostEntity(3, null, null, false, 0),
-                new PostEntity(2, null, null, false, 0),
-                new PostEntity(1, null, null, false, 0))).when(repository).findAll();
+        val vasya = mock(UserEntity.class);
+        doReturn(List.of(new PostEntity(3, vasya,null, null, false, 0),
+                new PostEntity(2, vasya, null, null, false, 0),
+                new PostEntity(1, vasya, null, null, false, 0))).when(repository).findAll();
         val service = new PostService(repository, Mappers.getMapper(PostMapper.class));
 
         assertEquals(3, service.getDrawnPosts(3,1).size());

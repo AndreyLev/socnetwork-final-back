@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rosbank.javaschool.crudapi.dto.UserResponseDto;
+import ru.rosbank.javaschool.crudapi.dto.UserSaveRequestDto;
+import ru.rosbank.javaschool.crudapi.entity.UserEntity;
 import ru.rosbank.javaschool.crudapi.mapper.UserMapper;
 import ru.rosbank.javaschool.crudapi.repository.UserRepository;
 
@@ -40,6 +42,10 @@ public class UserService {
                     return false;
                 })
                 .map(mapper::entityToUserResponseDto);
+    }
+
+    public UserEntity save(UserSaveRequestDto dto) {
+        return repository.save(mapper.dtoToUserEntity(dto));
     }
 
 
