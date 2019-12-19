@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.rosbank.javaschool.crudapi.dto.UserResponseDto;
 import ru.rosbank.javaschool.crudapi.dto.UserSaveRequestDto;
 import ru.rosbank.javaschool.crudapi.entity.UserEntity;
+import ru.rosbank.javaschool.crudapi.exception.NotFoundException;
 import ru.rosbank.javaschool.crudapi.mapper.UserMapper;
 import ru.rosbank.javaschool.crudapi.repository.UserRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,13 +29,23 @@ public class UserService {
     }
 
     public UserResponseDto getById(long id) {
-        return (UserResponseDto) repository.findAll().stream()
+         List<UserResponseDto> list = repository.findAll().stream()
                 .filter(o -> o.getId() == id)
-                .map(mapper::entityToUserResponseDto);
+                 .limit(1)
+                .map(mapper::entityToUserResponseDto)
+                .collect(Collectors.toList())
+                ;
+
+         if (list.size() == 0) {
+             throw new NotFoundException();
+         }
+
+         UserResponseDto desiredUserResponseDto = list.get(0);
+         return desiredUserResponseDto;
     }
 
     public UserResponseDto getByUsername(String username) {
-        return (UserResponseDto) repository.findAll().stream()
+        List<UserResponseDto> list = repository.findAll().stream()
                 .filter(o -> {
                     int result =  o.getUsername().compareToIgnoreCase(username);
                     if (result == 0) {
@@ -41,7 +53,16 @@ public class UserService {
                     }
                     return false;
                 })
-                .map(mapper::entityToUserResponseDto);
+                .map(mapper::entityToUserResponseDto)
+                .collect(Collectors.toList());
+
+        if (list.size() == 0) {
+            throw new NotFoundException();
+        }
+
+
+        UserResponseDto desiredUserResponseDto = list.get(0);
+        return desiredUserResponseDto;
     }
 
     public UserEntity save(UserSaveRequestDto dto) {

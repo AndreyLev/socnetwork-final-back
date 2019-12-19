@@ -9,10 +9,10 @@ import ru.rosbank.javaschool.crudapi.entity.UserEntity;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 
-//    @Modifying
-//    @Query("UPDATE UserEntity u SET u.removed=true WHERE u.id = :id")
-//    void setRemovedById(@Param("id") long id);
+    @Modifying
+    @Query("UPDATE UserEntity u SET u.removed=true WHERE u.id = :id")
+    void setRemovedById(@Param("id") long id);
 }

@@ -10,6 +10,8 @@ import ru.rosbank.javaschool.crudapi.entity.PostEntity;
 @AllArgsConstructor
 public class PostResponseDto {
   private int id;
+  private long authorId;
+  private String authorName;
   private String content;
   private String media;
   private int likes;

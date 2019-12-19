@@ -11,7 +11,13 @@ import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface PostMapper {
+
+  @Mappings({
+          @Mapping(target = "authorId", expression = "java(entity.getAuthor().getId())"),
+          @Mapping(target = "authorName", expression = "java(entity.getAuthor().getName())")
+  })
   PostResponseDto entityToPostResponseDto(PostEntity entity);
+
   @Mappings({
       @Mapping(target = "likes", constant = "0"),
       @Mapping(target = "removed", constant = "false")

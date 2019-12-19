@@ -6,7 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.rosbank.javaschool.crudapi.dto.PostResponseDto;
 import ru.rosbank.javaschool.crudapi.dto.PostSaveRequestDto;
+import ru.rosbank.javaschool.crudapi.dto.UserSaveRequestDto;
+import ru.rosbank.javaschool.crudapi.entity.UserEntity;
 import ru.rosbank.javaschool.crudapi.service.PostService;
+import ru.rosbank.javaschool.crudapi.service.UserService;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/posts")
 public class RestPostController {
   private final PostService service;
+  private final UserService userService;
   private final Logger logger = LoggerFactory.getLogger(RestPostController.class);
 
   // @ResponseBody
@@ -48,6 +52,7 @@ public class RestPostController {
   // POST -> create/update
   @PostMapping // DataBinding
   public PostResponseDto save(@RequestBody PostSaveRequestDto dto) {
+    dto.setAuthor(userService.save(new UserSaveRequestDto(0, "Anonym", "anonymous", "12345678", "anon@gmail.com")));
     return service.save(dto);
   }
 
