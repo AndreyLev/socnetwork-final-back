@@ -10,7 +10,6 @@ import ru.rosbank.javaschool.crudapi.exception.NotFoundException;
 import ru.rosbank.javaschool.crudapi.mapper.UserMapper;
 import ru.rosbank.javaschool.crudapi.repository.UserRepository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

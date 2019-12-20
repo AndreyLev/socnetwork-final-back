@@ -5,15 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rosbank.javaschool.crudapi.dto.PostResponseDto;
 import ru.rosbank.javaschool.crudapi.dto.PostSaveRequestDto;
-import ru.rosbank.javaschool.crudapi.entity.PostEntity;
 import ru.rosbank.javaschool.crudapi.exception.NotFoundException;
 import ru.rosbank.javaschool.crudapi.mapper.PostMapper;
 import ru.rosbank.javaschool.crudapi.repository.PostRepository;
 
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

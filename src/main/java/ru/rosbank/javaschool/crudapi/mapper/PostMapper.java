@@ -7,7 +7,6 @@ import ru.rosbank.javaschool.crudapi.dto.PostResponseDto;
 import ru.rosbank.javaschool.crudapi.dto.PostSaveRequestDto;
 import ru.rosbank.javaschool.crudapi.entity.PostEntity;
 
-import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface PostMapper {

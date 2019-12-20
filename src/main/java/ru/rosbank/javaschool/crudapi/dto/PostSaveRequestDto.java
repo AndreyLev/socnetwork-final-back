@@ -3,7 +3,6 @@ package ru.rosbank.javaschool.crudapi.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.rosbank.javaschool.crudapi.constraint.StopList;
 import ru.rosbank.javaschool.crudapi.entity.UserEntity;
 
 import javax.validation.constraints.Min;
@@ -21,7 +20,6 @@ public class PostSaveRequestDto {
   @NotNull
   @Size(min = 1, message = "error.validation.min_size")
   @Size(max = 500, message = "error.validation.max_size")
-  @StopList(value = {"bad", "dislike"}, message = "error.validation.stop_list")
   private String content;
   private String media;
 }

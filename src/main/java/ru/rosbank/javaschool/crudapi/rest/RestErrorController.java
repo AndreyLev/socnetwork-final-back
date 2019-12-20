@@ -11,6 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
+import ru.rosbank.javaschool.crudapi.Constants.ErrorConstant;
+import ru.rosbank.javaschool.crudapi.Constants.ErrorMessageConstant;
 import ru.rosbank.javaschool.crudapi.dto.ErrorResponseDto;
 import ru.rosbank.javaschool.crudapi.exception.BadRequestException;
 import ru.rosbank.javaschool.crudapi.exception.UnsupportedFileTypeException;
@@ -41,36 +43,32 @@ public class RestErrorController extends AbstractErrorController {
     ServletWebRequest webRequest = new ServletWebRequest(request);
     Throwable error = errorAttributes.getError(webRequest);
     int status = getStatus(request).value();
-    String message = "error.unknown";
+    String message = ErrorMessageConstant.UNKNOWN;
     String defaultMessage = messageSource.getMessage(message, null, locale);
     String translated = defaultMessage;
-    // null - норм
     if (error == null) {
-      // something bad happened
-      // Builder -> позволяет собирать сложные в несколько вызовов (без передачи всех параметров)
       return ResponseEntity.status(status).body(
           new ErrorResponseDto(status, message, translated, Collections.emptyMap())
       );
     }
 
     if (error instanceof BadRequestException) {
-      status = 400; // TODO: move to constants
-      message = "error.bad_request";
+      status = ErrorConstant.STATUS_400;
+      message = ErrorMessageConstant.BAD_REQUEST;
       translated = messageSource.getMessage(message, null, defaultMessage, locale);
       return getErrorResponseDtoResponseEntity(error, status, message, translated);
     }
 
     if (error instanceof UnsupportedFileTypeException) {
-      status = 400; // TODO: move to constants
-      message = "error.bad_filetype";
+      status = ErrorConstant.STATUS_400;
+      message = ErrorMessageConstant.BAD_FILETYPE;
       translated = messageSource.getMessage(message, null, defaultMessage, locale);
       return getErrorResponseDtoResponseEntity(error, status, message, translated);
     }
-    // TODO: what if this stuff throws exception
 
     if (error instanceof MethodArgumentNotValidException) {
-      status = 400;
-      message = "error.validation";
+      status = ErrorConstant.STATUS_400;
+      message = ErrorMessageConstant.VALIDATION;
       translated = messageSource.getMessage(message, null, defaultMessage, locale);
       final Map<String, List<String>> errors = ((MethodArgumentNotValidException) error).getBindingResult().getFieldErrors().stream()
           .collect(
@@ -80,7 +78,6 @@ public class RestErrorController extends AbstractErrorController {
       return getErrorResponseDtoResponseEntity(error, status, message, translated, errors);
     }
 
-    // catch all
     return getErrorResponseDtoResponseEntity(error, status, message, translated);
   }
 

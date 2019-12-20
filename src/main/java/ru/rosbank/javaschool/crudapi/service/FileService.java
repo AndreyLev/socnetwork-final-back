@@ -52,7 +52,6 @@ public class FileService {
   public UploadResponseDto save(MultipartFile multipartFile) {
     String extension;
     String contentType = multipartFile.getContentType();
-    // Apache Tika
     if ("image/jpeg".equals(contentType)) {
       extension = ".jpg";
     } else if ("image/png".equals(contentType)) {

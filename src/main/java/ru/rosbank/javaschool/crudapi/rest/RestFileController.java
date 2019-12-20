@@ -18,9 +18,6 @@ import java.io.IOException;
 public class RestFileController {
   private final FileService service;
 
-  // Multipart
-  // byte[]
-  // Model
 
   @PostMapping("/multipart")
   public UploadResponseDto uploadMultipart(@RequestParam MultipartFile file) {
@@ -33,7 +30,6 @@ public class RestFileController {
     return service.save(bytes);
   }
 
-  // TODO: security logic
   @GetMapping("/entity/{id}")
   public ResponseEntity<Resource> getEntity(@PathVariable String id) {
     UploadInfo uploadInfo = service.get(id);
